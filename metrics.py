@@ -79,7 +79,14 @@ def send_to_datadog(metrics):
 
 def main(bucketName, date=datetime.datetime.today().strftime('%Y-%m-%d'), target="Metric"):
     """
-    This is a simple Python script that can grab objects from a given S3 bucket and optionally send metrics related to transactions to datahub.
+    This is a simple Python script that can grab objects from a given S3 bucket and optionally send metrics related to transactions to datahub.\n
+    Examples: \n
+        1. python3 metrics.py --bucketName=my-personal-bucket --target=Print  (This will print today's and yesterday's tranasactions on the standard output from the bucket)\n
+        2. python3 metrics.py --bucketName=my-personal-bucket (This will print the metric values on the standard output)\n
+        3. python3 metrics.py --bucketName=my-personal-bucket --date='2021-08-30' (This will consider today's date as 30th August 2021)\n
+        4. python3 metrics.py --bucketName=my-personal-bucket --date='2021-08-30' --target=Datadog (This will not print anything on the screen, but will send the metrics to Datadog)\n
+
+    IMPORTANT:- The script assumes that you have AWS authentication configured on the system. Also, datadog API Key is available as environment variable named DATADOG_API_KEY
     """
     try:
         if target == 'Print':
